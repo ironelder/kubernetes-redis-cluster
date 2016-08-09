@@ -24,17 +24,6 @@ Client Version: GitVersion:"v1.3.3"
 Server Version: GitVersion:"v1.3.3"
 ```
 
-###Create Redis Nodes
-```
-kubectl create -f replications
-```
-또는
-```
-kubectl create -f replications/redis-1.yaml
-kubectl create -f replications/redis-2.yaml
-kubectl create -f replications/redis-3.yaml
-```
-
 ###Create Redis Services
 ```
 kubectl create -f services
@@ -44,6 +33,17 @@ kubectl create -f services
 kubectl create -f services/redis-1.yaml
 kubectl create -f services/redis-2.yaml
 kubectl create -f services/redis-3.yaml
+```
+
+###Create Redis Nodes
+```
+kubectl create -f replications
+```
+또는
+```
+kubectl create -f replications/redis-1.yaml
+kubectl create -f replications/redis-2.yaml
+kubectl create -f replications/redis-3.yaml
 ```
 
 ###Connect Nodes
