@@ -1,0 +1,18 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: redis-5
+spec:
+  selector:
+    app: redis
+    name: redis-5
+  ports:
+    - name: redis
+      port: 7001
+      targetPort: 7001
+      protocol: TCP
+    - name: cluster
+      port: 17001
+      targetPort: 17001
+      protocol: TCP
+  clusterIP: "192.168.0.115"
