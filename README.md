@@ -71,3 +71,68 @@ gem install redis
   192.168.0.111:7000 \
   192.168.0.111:7000
 ```
+
+###Add a New Node
+```
+kubectl get all
+```
+위의 명령어로 ubuntu NAME을 미리 알아둔다.
+
+기존에 올라가있는 머신이 아닌 다른 머신을 추가해서 Node를 추가할 경우
+(Port는 7000, 17000을 계속 사용한다)
+```
+kubectl create -f services/redis-4.yaml
+kubectl create -f replications/redis-4.yaml
+kubectl exec -i --tty ubuntu-239113138-rrm01 /bin/bash
+
+./redis-trib.rb add-node 192.168.0.114:7000 \
+  192.168.0.111:7000
+  
+./redis-trib.rb reshard 192.168.0.111:7000
+.....
+.....
+How many slots do you want to move (from 1 to 16384)? 1000 
+What is the receiving node ID? 08036dbc89a1d8c703d423c05499035072c480ab (192.168.0.114:7000 Node ID, 받을 노드의 ID)
+.....
+.....
+Source node #1:0e028bc2e06ae5483c29ff3d757484f9470261a3 (92.168.0.111:7000 Node ID, 할당 해줄 소스 노드의 ID)
+Source node #2:done   (소스 노드 ID이 끝났으면 'done'를 입력한다.)
+....
+....
+....
+Do you want to proceed with the proposed reshard plan (yes/no)? yes
+.....
+.....
+Moving slot 999 from 192.168.0.111:7000 to 10.244.85.3:7000: 
+
+redis-cli -h 192.168.0.111 -p 7000 cluster info
+```
+
+기존에 올라가있는 머신에 Node를 추가할 경우
+(Port가 7001, 17001로 바뀐다)
+```
+kubectl create -f services/redis-5.yaml
+kubectl create -f replications/redis-5.yaml
+
+./redis-trib.rb add-node 192.168.0.115:7001 \
+  192.168.0.111:7000
+  
+./redis-trib.rb reshard 192.168.0.111:7000
+.....
+.....
+How many slots do you want to move (from 1 to 16384)? 1000 
+What is the receiving node ID? 08036dbc89a1d8c703d423c05499035072c480ab (192.168.0.115:7001 Node ID, 받을 노드의 ID)
+.....
+.....
+Source node #1:0e028bc2e06ae5483c29ff3d757484f9470261a3 (92.168.0.111:7000 Node ID, 할당 해줄 소스 노드의 ID)
+Source node #2:done   (소스 노드 ID이 끝났으면 'done'를 입력한다.)
+....
+....
+....
+Do you want to proceed with the proposed reshard plan (yes/no)? yes
+.....
+.....
+Moving slot 999 from 192.168.0.111:7000 to 10.244.85.3:7001: 
+
+redis-cli -h 192.168.0.111 -p 7001 cluster info
+```
