@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: redis
+spec:
+  selector:
+    app: redis
+  ports:
+    - name: redis
+      protocol: TCP
+      port: 7000
+      targetPort: 7000
+    - name: cluster
+      protocol: TCP
+      port: 17000
+      targetPort: 17000
