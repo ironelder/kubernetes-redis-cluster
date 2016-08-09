@@ -113,6 +113,7 @@ redis-cli -h 192.168.0.111 -p 7000 cluster info
 ```
 kubectl create -f services/redis-5.yaml
 kubectl create -f replications/redis-5.yaml
+kubectl exec -i --tty ubuntu-239113138-rrm01 /bin/bash
 
 ./redis-trib.rb add-node 192.168.0.115:7001 \
   192.168.0.111:7000
