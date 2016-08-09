@@ -15,7 +15,7 @@ Redis Clustering은 Master 3개로 구성한다.
 ###kubernetes 구성 요건
 ```
 - Master 1개
-- Slave 3개
+- Slave 3개 이상
 ```
 
 ###kubernetes, kubectl version
