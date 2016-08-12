@@ -16,9 +16,7 @@ spec:
           ports:
             - name: redis
               containerPort: 7001
-              hostPort: 7001
               protocol: TCP
             - name: cluster
               containerPort: 17001
-              hostPort: 17001
               protocol: TCP
